@@ -3,14 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MovieRankingComponent } from './movie-ranking/movie-ranking.component';
+import { MovieRankingTableComponent } from './movie-ranking-table/movie-ranking-table.component';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NavbarTopComponent } from './navbar-top/navbar-top.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MovieRankingComponent,
+    MovieRankingTableComponent,
+    NavbarTopComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

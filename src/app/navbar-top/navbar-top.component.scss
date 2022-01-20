@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  background-color: var(--color-primary-dark);
+  align-content: center;
+}
+
+.logo {
+  color: #eeeeee;
+  margin: auto 15px;
+}
