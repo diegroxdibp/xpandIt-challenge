@@ -18,7 +18,7 @@ export class MoviesService {
   constructor(private http: HttpClient) {
     // Defaulting values
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = 20;
   }
 
   getMoviesFullApiResponse(): Observable<MoviesApiResponse> {
@@ -39,8 +39,8 @@ export class MoviesService {
     ).pipe(
       tap({
         next: (response: MoviesApiResponse) => {
-          this.currentPage = response.pageable.pageNumber;
           this.currentPageIsLast = response.last;
+          this.currentPage = response.pageable.pageNumber;
           console.log('Page --> ', this.currentPage)
           console.log(this.queryBuilder(this.API_URL, this.MOVIES_ENDPOINT, [pageSize.toString(), pageNumber.toString()]));
         },
