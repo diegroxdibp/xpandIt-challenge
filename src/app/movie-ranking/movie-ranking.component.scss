@@ -1,6 +1,24 @@
 :host {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 50px);
   width: 70%;
-  margin: 1.5rem auto;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-top: 1.5rem;
+}
+
+.content {
+  height: calc(100vh - 50px);
+  height: 100%;
+  overflow-y: scroll;
+}
+
+mat-progress-bar {
+  border: 0;
+  height: 3px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }

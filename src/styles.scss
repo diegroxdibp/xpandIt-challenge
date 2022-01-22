@@ -60,3 +60,7 @@ h1 {
 p {
   color: var(--color-text);
 }
+
+.cdk-virtual-scroll-viewport-wrapper {
+  height: 100%;
+}

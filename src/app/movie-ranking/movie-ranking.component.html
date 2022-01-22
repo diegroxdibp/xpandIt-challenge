@@ -1,3 +1,9 @@
 <h1>Movie ranking</h1>
-
-<app-movie-ranking-table></app-movie-ranking-table>
+<cdk-virtual-scroll-viewport #scroller [itemSize]="72" class="content">
+  <mat-list>
+    <mat-list-item *cdkVirtualFor="let movie of movies$ | async; index as i">
+      <p>{{ movie.title }}</p>
+    </mat-list-item>
+  </mat-list>
+  <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+</cdk-virtual-scroll-viewport>
