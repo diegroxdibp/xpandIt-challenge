@@ -15,6 +15,16 @@ cdk-virtual-scroll-viewport {
   overflow-y: scroll;
 }
 
+cdk-virtual-scroll-viewport::-webkit-scrollbar {
+  width: 5px;
+}
+
+cdk-virtual-scroll-viewport::-webkit-scrollbar-thumb {
+  background-color: var(--color-icon);
+  border-radius: 20px;
+  opacity: 50%;
+}
+
 .movie {
   height: 50px;
 }
