@@ -19,40 +19,36 @@ export class MovieRankingComponent implements OnInit, AfterViewInit {
   loading = false;
   pageSize: number;
 
-  displayedColumns = ['rank', 'title', 'year', 'revenue', 'eye'];
-  dataSource: Movie[];
-
   constructor(
     private moviesService: MoviesService,
     private ngZone: NgZone
   ) {
-    this.moviesService.getMoviesByPage().subscribe(data => this.dataSource = data);
+    this.moviesService.getMoviesByPage().subscribe(data => this.movies = data);
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    // this.scroller.elementScrolled().pipe(
-    //   map(() => this.scroller.measureScrollOffset('bottom')),
-    //   pairwise(),
-    //   filter(([y1, y2]) => (y2 < y1 && y2 < 90)),
-    //   throttleTime(200)
-    // ).subscribe(() => {
-    //   this.ngZone.run(() => {
-    //     this.fetchNextPage();
-    //   });
-    // }
-    // );
+    this.scroller.elementScrolled().pipe(
+      map(() => this.scroller.measureScrollOffset('bottom')),
+      pairwise(),
+      filter(([y1, y2]) => (y2 < y1 && y2 < 90)),
+      throttleTime(200)
+    ).subscribe(() => {
+      this.ngZone.run(() => {
+        this.fetchNextPage();
+      });
+    }
+    );
   }
 
-  fetchNextPage(e: any) {
-    console.log('proc', e)
+  fetchNextPage() {
     this.loading = true;
     this.moviesService.getMoviesByPage(this.moviesService.pageSize, this.moviesService.currentPage + 1)
       .pipe(
         finalize(() => { this.loading = false; })
       )
-      .subscribe((data) => { this.dataSource = [...this.dataSource, ...data] });
+      .subscribe((data) => { this.movies = [...this.movies, ...data] });
   }
 }

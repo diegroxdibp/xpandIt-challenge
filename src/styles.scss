@@ -47,6 +47,7 @@ body {
   --color-primary: #0b749b;
   --color-primary-dark: #012433;
   --color-text: #536b7a;
+  --color-icon: #9aaebb;
 }
 body {
   margin: 0;
@@ -57,10 +58,15 @@ h1 {
   color: var(--color-primary);
 }
 
-p {
+p,
+span {
   color: var(--color-text);
 }
 
-.cdk-virtual-scroll-viewport-wrapper {
-  height: 100%;
+span {
+  font-size: 16px;
+}
+
+mat-icon {
+  color: var(--color-icon);
 }

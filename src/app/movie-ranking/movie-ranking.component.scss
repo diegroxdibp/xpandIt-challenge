@@ -16,16 +16,46 @@ cdk-virtual-scroll-viewport {
 }
 
 .movie {
+  height: 50px;
+}
+
+.movie-grid {
+  height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 3fr 2fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  .title {
+    justify-content: flex-start;
+  }
+}
+
+.header {
+  height: fit-content;
+  margin: 0 0 5px 0;
+  span {
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--color-primary);
+  }
+}
+
+mat-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
 }
 
 mat-spinner {
   margin: 0 auto;
-}
-
-.mat-table {
-  overflow: auto;
-  max-height: 500px;
 }

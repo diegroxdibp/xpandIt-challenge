@@ -1,59 +1,24 @@
 <h1>Movie ranking</h1>
-<!--
+
 <cdk-virtual-scroll-viewport #scroller [itemSize]="50">
-  <mat-list>
-    <mat-list-item *cdkVirtualFor="let movie of movies" class="movie">
-      <p> {{movie.rank}} </p>
-      <p> {{movie.title}} </p>
-      <p>
-        {{movie.year}}
-      </p>
-      <p>
-        {{movie.revenue}}
-      </p>
-      <mat-icon>
-        more_vert
-      </mat-icon>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
+  <div class="movie-grid header">
+    <span>RANKING</span>
+    <span class="title">TITLE</span>
+    <span>YEAR</span>
+    <span>REVENUE</span>
+    <span></span>
+  </div>
+  <mat-divider></mat-divider>
+  <div *cdkVirtualFor="let movie of movies" class="movie">
+    <div class="movie-grid info">
+      <span> {{ movie.rank }} </span>
+      <span class="title"> {{ movie.title }} </span>
+      <span> {{ movie.year }} </span>
+      <span> ${{ movie.revenue }} </span>
+      <mat-icon aria-label="See more"> remove_red_eye </mat-icon>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <!-- <mat-divider></mat-divider> -->
   <mat-spinner *ngIf="loading"></mat-spinner>
-</cdk-virtual-scroll-viewport> -->
-
-<mat-table #table [dataSource]="dataSource" (scroll)="fetchNextPage($event)">
-
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
-  <ng-container matColumnDef="rank">
-    <mat-header-cell *matHeaderCellDef> Ranking </mat-header-cell>
-    <mat-cell *matCellDef="let movie"> {{movie.rank}} </mat-cell>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-    <mat-cell *matCellDef="let movie"> {{movie.title}} </mat-cell>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="year">
-    <mat-header-cell *matHeaderCellDef> Year </mat-header-cell>
-    <mat-cell *matCellDef="let movie"> {{movie.year}} </mat-cell>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="revenue">
-    <mat-header-cell *matHeaderCellDef> Revenue </mat-header-cell>
-    <mat-cell *matCellDef="let movie"> {{movie.revenue}} </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="eye">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-    <mat-cell *matCellDef="let movie"> cu </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns; let i= index"></mat-row>
-</mat-table>
+</cdk-virtual-scroll-viewport>
