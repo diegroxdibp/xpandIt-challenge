@@ -50,6 +50,9 @@ body {
   --color-icon: #9aaebb;
   --color-pill: #78849e;
   --color-pill-border: #78849e66;
+  --color-dialog-titles: #78849eb9;
+  --color-directors: #00baff;
+  --color-dialog-ornament: #21b3cf;
 }
 body {
   margin: 0;
@@ -71,4 +74,33 @@ span {
 
 mat-icon {
   color: var(--color-icon);
+}
+
+.dialog-box-movie-details {
+  mat-dialog-container {
+    position: relative;
+    padding: 30px 58px 0px 58px;
+    border-radius: 0;
+  }
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-icon) transparent;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-icon);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-pill);
+  border-radius: 20px;
+  border: 3px solid transparent;
 }

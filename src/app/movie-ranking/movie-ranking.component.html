@@ -1,7 +1,7 @@
 <h1>Movie ranking</h1>
 
 <div class="top-ten">
-  <app-pill [title]="'Top 10 Revenue'"></app-pill>
+  <app-pill (clickng)="top10Revenue()" [title]="'Top 10 Revenue'"></app-pill>
   <app-pill [title]="'Top 10 Revenue by Year'"></app-pill>
 </div>
 
@@ -14,19 +14,6 @@
 </div>
 <mat-divider></mat-divider>
 
-<cdk-virtual-scroll-viewport #scroller [itemSize]="50">
+<app-movies-list *ngIf="!top10" [params]="[20, 0]"></app-movies-list>
 
-  <div *cdkVirtualFor="let movie of movies" class="movie">
-    <div class="movie-grid info">
-      <span> {{ movie.rank }} </span>
-      <span class="title"> {{ movie.title }} </span>
-      <span> {{ movie.year }} </span>
-      <span> ${{ movie.revenue }} </span>
-      <mat-icon aria-label="See more"> remove_red_eye </mat-icon>
-    </div>
-    <mat-divider></mat-divider>
-  </div>
-
-  <mat-spinner *ngIf="loading"></mat-spinner>
-
-</cdk-virtual-scroll-viewport>
+<app-movies-list-top10 *ngIf="top10"></app-movies-list-top10>

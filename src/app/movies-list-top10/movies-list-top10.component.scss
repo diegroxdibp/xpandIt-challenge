@@ -1,0 +1,55 @@
+:host {
+  height: 100%;
+}
+
+cdk-virtual-scroll-viewport {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+cdk-virtual-scroll-viewport::-webkit-scrollbar {
+  width: 5px;
+}
+
+cdk-virtual-scroll-viewport::-webkit-scrollbar-thumb {
+  background-color: var(--color-icon);
+  border-radius: 20px;
+  opacity: 50%;
+}
+
+.movie-grid {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+}
+
+.movie {
+  height: 50px;
+}
+
+.info {
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  .title {
+    justify-content: flex-start;
+  }
+
+  mat-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+  }
+}
+
+mat-spinner {
+  margin: 0 auto;
+}
