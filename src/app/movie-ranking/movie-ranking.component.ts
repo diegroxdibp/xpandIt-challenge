@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PillsStatusService } from '../pills-status.service';
 
 @Component({
   selector: 'app-movie-ranking',
@@ -6,16 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./movie-ranking.component.scss']
 })
 export class MovieRankingComponent implements OnInit {
-
-  top10 = false;
-
+  top10RevenueByYearSelectIsActive: boolean = false;
   constructor(
-
+    public pillsService: PillsStatusService
   ) { }
 
   ngOnInit(): void { }
 
-  top10Revenue() {
-    this.top10 = !this.top10;
+  yearSelect(): void {
+    this.top10RevenueByYearSelectIsActive = !this.top10RevenueByYearSelectIsActive;
+  }
+
+  backdropAction() {
+    this.top10RevenueByYearSelectIsActive = false;
   }
 }

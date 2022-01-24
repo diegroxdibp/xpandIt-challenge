@@ -5,7 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,7 +26,7 @@ import { PillComponent } from './pill/pill.component';
     PillComponent,
     MoviesListComponent,
     MoviesListTop10Component,
-    MovieDetailComponent
+    MovieDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,8 +37,8 @@ import { PillComponent } from './pill/pill.component';
     MatListModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

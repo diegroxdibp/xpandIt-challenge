@@ -1,11 +1,31 @@
 <h1>Movie ranking</h1>
 
 <div class="top-ten">
-  <app-pill (clickng)="top10Revenue()" [title]="'Top 10 Revenue'"></app-pill>
-  <app-pill [title]="'Top 10 Revenue by Year'"></app-pill>
+  <div class="pill" [class.active]='pillsService.top10RevenueActive' (click)="pillsService.toggleTop10RevenueStatus()">
+    Top 10
+    Revenue
+  </div>
+  <div class="pill" [class.active]='pillsService.top10RevenueByYearActive' (click)="yearSelect()">
+    Top 10 Revenue by Year</div>
 </div>
 
-<div class="movie-grid header">
+<div *ngIf="top10RevenueByYearSelectIsActive" class="year-select-backdrop" (click)="backdropAction()">
+  <div class="year-select">
+
+    <h1>Select a year</h1>
+    <span>2016</span>
+    <span>2015</span>
+    <span>2014</span>
+    <span>2013</span>
+  </div>
+</div>
+
+<!-- <mat-menu class="year-menu" backdropClass="backdrop" mat-button #menuTop10ByYears="matMenu">
+  <button mat-menu-item>Item 1</button>
+</mat-menu> -->
+
+
+<div class=" movie-grid header">
   <span>RANKING</span>
   <span class="title">TITLE</span>
   <span>YEAR</span>
@@ -14,6 +34,7 @@
 </div>
 <mat-divider></mat-divider>
 
-<app-movies-list *ngIf="!top10" [params]="[20, 0]"></app-movies-list>
+<app-movies-list *ngIf="!pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive" [params]="[20, 0]">
+</app-movies-list>
 
-<app-movies-list-top10 *ngIf="top10"></app-movies-list-top10>
+<app-movies-list-top10 *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
