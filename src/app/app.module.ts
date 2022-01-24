@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MovieDeatilComponent } from './movie-deatil/movie-deatil.component';
+import { MovieDetailComponent } from './movie-deatil/movie-detail.component';
 import { MovieRankingComponent } from './movie-ranking/movie-ranking.component';
 import { MoviesListTop10Component } from './movies-list-top10/movies-list-top10.component';
 import { MoviesListComponent } from './movies-list/movies-list.component';
@@ -26,7 +26,7 @@ import { PillComponent } from './pill/pill.component';
     PillComponent,
     MoviesListComponent,
     MoviesListTop10Component,
-    MovieDeatilComponent
+    MovieDetailComponent
   ],
   imports: [
     BrowserModule,

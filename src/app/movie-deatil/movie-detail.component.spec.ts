@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovieDeatilComponent } from './movie-deatil.component';
+import { MovieDeatilComponent } from './movie-detail.component';
 
 describe('MovieDeatilComponent', () => {
   let component: MovieDeatilComponent;

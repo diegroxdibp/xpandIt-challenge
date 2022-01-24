@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { filter, finalize, map, pairwise, throttleTime } from 'rxjs/operators';
 
-import { Movie } from '../models/movie';
-import { MovieDeatilComponent } from '../movie-deatil/movie-deatil.component';
+import { Movie, MovieFullDescription } from '../models/movie';
+import { MovieDetailComponent } from '../movie-deatil/movie-detail.component';
 import { MoviesService } from '../movies.service';
 
 @Component({
@@ -63,17 +63,27 @@ export class MoviesListComponent implements OnInit, AfterViewInit, OnDestroy {
   // Dialog dimensions
   // Height = Screen height - Navbar size - Top and Bottom margins on design document together
   // Position, Starting from the top and offseting navbar and top margin = Navabar size + Top margin on document
+
   openDialog(movie: Movie): void {
-    const dialogRef = this.dialog.open(MovieDeatilComponent, {
-      maxHeight: 'calc(100vh - 50px - 42px)',
-      width: '750px',
-      ariaLabel: 'Movie information',
-      panelClass: 'dialog-box-movie-details',
-      position: {
-        top: '71px'
-      },
-      data: movie,
-    });
+    const movieDetail$ = this.moviesService.getMoviesById(movie.id);
+    const movieDetailSubscription = movieDetail$.subscribe((movie: MovieFullDescription) => {
+      const dialogRef = this.dialog.open(MovieDetailComponent, {
+        maxHeight: 'calc(100vh - 50px - 42px)',
+        width: '750px',
+        ariaLabel: 'Movie information',
+        panelClass: 'dialog-box-movie-details',
+        position: {
+          top: '71px'
+        },
+        data: movie,
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        movieDetailSubscription.unsubscribe()
+      });
+    })
+
+
   }
 
   ngOnDestroy(): void {
