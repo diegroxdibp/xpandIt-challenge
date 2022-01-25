@@ -36,3 +36,12 @@
     }
   }
 }
+
+mat-icon {
+  color: var(--color-icon);
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-hover-background);
+  }
+}

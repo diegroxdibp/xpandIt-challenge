@@ -58,15 +58,6 @@ span {
   font-size: 16px;
 }
 
-mat-icon {
-  color: var(--color-icon);
-
-  &:hover {
-    color: var(--color-text);
-    background: var(--color-hover-background);
-  }
-}
-
 mat-spinner {
   margin: 0 auto;
 }
