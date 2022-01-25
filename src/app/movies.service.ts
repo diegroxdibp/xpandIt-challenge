@@ -9,7 +9,7 @@ import { map, shareReplay, take, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MoviesService {
-  private readonly API_URL = 'http://movie-challenge-api-xpand.azurewebsites.net/';
+  private readonly API_URL = 'https://movie-challenge-api-xpand.azurewebsites.net/';
   private readonly MOVIES_ENDPOINT = 'api/movies';
   private readonly moviesFullResponse$: Observable<MoviesApiResponse>;
   public readonly movies$: Observable<Movie[]>;
