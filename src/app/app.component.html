@@ -1,4 +1,7 @@
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<head>
+  <!-- Workaround due to AJAX trying to call over HTTP whereas server is running over HTTPS -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
 <app-navbar-top></app-navbar-top>
 <app-movie-ranking></app-movie-ranking>
 <router-outlet></router-outlet>
