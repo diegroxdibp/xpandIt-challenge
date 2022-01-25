@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+
 import { MoviesService } from '../movies.service';
 import { PillsStatusService } from '../pills-status.service';
 
 @Component({
   selector: 'app-movie-ranking',
   templateUrl: './movie-ranking.component.html',
-  styleUrls: ['./movie-ranking.component.scss']
+  styleUrls: ['./movie-ranking.component.scss'],
 })
 export class MovieRankingComponent implements OnInit {
   top10RevenueByYearSelectIsActive: boolean = false;

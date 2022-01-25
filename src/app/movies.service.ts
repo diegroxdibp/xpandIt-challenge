@@ -3,33 +3,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie, MovieFullDescription } from './models/movie';
 import { MoviesApiResponse } from './models/moviesApiResponse';
-import { map, take, tap } from 'rxjs/operators';
+import { map, shareReplay, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
+  private readonly API_URL = 'http://movie-challenge-api-xpand.azurewebsites.net/';
+  private readonly MOVIES_ENDPOINT = 'api/movies';
+  private readonly moviesFullResponse$: Observable<MoviesApiResponse>;
+  public readonly movies$: Observable<Movie[]>;
+  public currentPage: number;
+  public currentPageIsLast: boolean;
+  public pageSize: number;
 
-  API_URL = 'http://movie-challenge-api-xpand.azurewebsites.net/';
-  MOVIES_ENDPOINT = 'api/movies';
-  currentPage: number;
-  currentPageIsLast: boolean;
-  pageSize: number;
-
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
+    this.moviesFullResponse$ = this.http.get<MoviesApiResponse>(`${this.API_URL}${this.MOVIES_ENDPOINT}`).pipe(
+      shareReplay({ bufferSize: 1, refCount: false }));
+    this.movies$ = this.moviesFullResponse$.pipe(
+      map((response: MoviesApiResponse) => { return response.content })
+    );
     // Defaulting values
     this.currentPage = 0;
     this.pageSize = 20;
-  }
-
-  getMoviesFullApiResponse(): Observable<MoviesApiResponse> {
-    return this.http.get<MoviesApiResponse>(`${this.API_URL}${this.MOVIES_ENDPOINT}`);
-  }
-
-  getMovies(): Observable<Movie[]> {
-    return this.getMoviesFullApiResponse().pipe(
-      map((response: MoviesApiResponse) => { return response.content })
-    );
   }
 
   getMoviesById(id: string): Observable<MovieFullDescription> {
@@ -56,7 +52,7 @@ export class MoviesService {
 
   // Get years from movies and sort from latest to oldest
   getMoviesYears(): Observable<number[]> {
-    return this.getMovies().pipe(
+    return this.movies$.pipe(
       map((movies: Movie[]) => {
         const years: number[] = [];
         const yearsArray = movies.map((movie: Movie) => { return movie.year });
@@ -80,7 +76,7 @@ export class MoviesService {
     const start = `start=${yearStart}`;
     const finish = `${yearEnd ? 'end=' + yearEnd : 'end=' + yearStart}`;
     return this.http.get<MoviesApiResponse>(
-      `${this.queryBuilder(this.API_URL, this.MOVIES_ENDPOINT, [start, finish])} `
+      `${this.queryBuilder(this.API_URL, this.MOVIES_ENDPOINT, [start, finish])}`
     ).pipe(
       tap({
         next: () => {
@@ -94,9 +90,9 @@ export class MoviesService {
     );
   }
 
-
+  // TODO Refactor the sorting method for efficiency
   getTop10MoviesByRevenue(): Observable<Movie[]> {
-    return this.getMovies().pipe(
+    return this.movies$.pipe(
       map((movies: Movie[]) => {
         const sortedByRevenue = movies.sort((a, b) => (a.revenue < b.revenue) ? 1 : -1);
         return sortedByRevenue.filter((movie: Movie, index: number) => index < 10);
@@ -108,13 +104,4 @@ export class MoviesService {
       }),
     );
   }
-
-  // getTop10RevenuePerYear(): Observable<Movie[]> {
-  //   return this.getMoviesByYear.pipe(
-  //     map((movies: Movie[]) => {
-  //       return movies.sort((a, b) => (a.revenue < b.revenue) ? 1 : -1);
-  //     })
-  //   )
-  // }
-
 }

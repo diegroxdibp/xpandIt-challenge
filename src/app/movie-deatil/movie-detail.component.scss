@@ -5,20 +5,36 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+  margin-bottom: 16px;
 
-.button-wrapper {
-  position: absolute;
-  top: 32px;
-  right: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
+  h1 {
+    margin: 0;
+  }
 
-  span {
-    font-size: 10px;
-    color: var(--color-icon);
+  .button-wrapper {
+    position: absolute;
+    top: 32px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      font-size: 10px;
+      color: var(--color-icon);
+    }
+
+    &:hover {
+      color: var(--color-text);
+      background: var(--color-hover-background);
+    }
+
+    @media only screen and (max-width: 600px) {
+      position: relative;
+      top: 0;
+      right: 0;
+    }
   }
 }
 
@@ -61,7 +77,16 @@ p {
         font-size: 16px;
         font-weight: 500;
         color: var(--color-directors);
+        word-break: break-all;
       }
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .mobile-wrapper {
+      display: grid;
+      grid-gap: 0 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
   }
 }

@@ -40,8 +40,16 @@ cdk-virtual-scroll-viewport {
     font-size: 13px;
     cursor: pointer;
   }
-}
 
-mat-spinner {
-  margin: 0 auto;
+  @media only screen and (max-width: 600px) {
+    span {
+      text-align: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .title {
+      justify-content: center;
+    }
+  }
 }

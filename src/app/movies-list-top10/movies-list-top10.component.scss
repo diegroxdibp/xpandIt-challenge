@@ -38,10 +38,18 @@ cdk-virtual-scroll-viewport {
     justify-content: center;
     align-items: center;
     font-size: 13px;
+    cursor: pointer;
+  }
 
-    &:hover {
-      color: var(--color-text);
-      background: var(--color-hover-background);
+  @media only screen and (max-width: 600px) {
+    span {
+      text-align: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .title {
+      justify-content: center;
     }
   }
 }

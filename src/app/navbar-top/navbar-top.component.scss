@@ -7,6 +7,23 @@
 }
 
 .logo {
-  color: #eeeeee;
   margin: auto 15px;
+  color: #eeeeee;
+
+  a {
+    color: #eeeeee;
+    text-decoration: none;
+  }
+
+  a:link {
+    color: white;
+  }
+
+  a:visited {
+    color: white;
+  }
+  a:hover,
+  a:active {
+    color: blueviolet;
+  }
 }
