@@ -63,7 +63,6 @@ export class MoviesListComponent implements OnInit, AfterViewInit, OnDestroy {
   // Dialog dimensions
   // Height = Screen height - Navbar size - Top and Bottom margins on design document together
   // Position, Starting from the top and offseting navbar and top margin = Navabar size + Top margin on document
-
   openDialog(movie: Movie): void {
     const movieDetail$ = this.moviesService.getMoviesById(movie.id);
     const movieDetailSubscription = movieDetail$.subscribe((movie: MovieFullDescription) => {
@@ -82,8 +81,6 @@ export class MoviesListComponent implements OnInit, AfterViewInit, OnDestroy {
         movieDetailSubscription.unsubscribe()
       });
     })
-
-
   }
 
   ngOnDestroy(): void {

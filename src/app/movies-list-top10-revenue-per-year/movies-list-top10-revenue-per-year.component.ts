@@ -1,23 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { Movie, MovieFullDescription } from '../models/movie';
 import { MovieDetailComponent } from '../movie-deatil/movie-detail.component';
 import { MoviesService } from '../movies.service';
 
 @Component({
-  selector: 'app-movies-list-top10',
-  templateUrl: './movies-list-top10.component.html',
-  styleUrls: ['./movies-list-top10.component.scss']
+  selector: 'app-movies-list-top10-revenue-per-year',
+  templateUrl: './movies-list-top10-revenue-per-year.component.html',
+  styleUrls: ['./movies-list-top10-revenue-per-year.component.scss']
 })
-export class MoviesListTop10Component implements OnInit, OnDestroy {
-
+export class MoviesListTop10RevenuePerYearComponent implements OnInit, OnChanges, OnDestroy {
+  @Input('year') year: number;
   movies: Movie[];
-  movies$: Observable<Movie[]>;
   subscription: Subscription;
   loading = false;
-  pageSize: number;
 
   constructor(
     private moviesService: MoviesService,
@@ -26,10 +24,11 @@ export class MoviesListTop10Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true;
-    this.movies$ = this.moviesService.getTop10MoviesByRevenue()
+    this.moviesService.getMoviesByYear(this.year)
       .pipe(
         finalize(() => { this.loading = false; })
-      );
+      )
+      .subscribe((movies: Movie[]) => this.movies = movies);
   }
 
   // Dialog dimensions
@@ -55,6 +54,18 @@ export class MoviesListTop10Component implements OnInit, OnDestroy {
     })
   }
 
+  ngOnChanges(): void {
+    console.log(this.year)
+    this.loading = true;
+    const newSubscription = this.moviesService.getMoviesByYear(this.year)
+      .pipe(
+        finalize(() => { this.loading = false; })
+      )
+      .subscribe((movies: Movie[]) => this.movies = movies);
+    this.subscription = newSubscription;
+  }
+
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

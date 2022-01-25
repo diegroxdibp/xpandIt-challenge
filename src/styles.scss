@@ -38,6 +38,7 @@ body {
   --color-dialog-titles: #78849eb9;
   --color-directors: #00baff;
   --color-dialog-ornament: #21b3cf;
+  --color-hover-background: #9aaebb27;
 }
 body {
   margin: 0;
@@ -59,6 +60,15 @@ span {
 
 mat-icon {
   color: var(--color-icon);
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-hover-background);
+  }
+}
+
+mat-spinner {
+  margin: 0 auto;
 }
 
 // Injectable class for Movie dialog modal - Must be global

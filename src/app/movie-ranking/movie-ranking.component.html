@@ -2,28 +2,21 @@
 
 <div class="top-ten">
   <div class="pill" [class.active]='pillsService.top10RevenueActive' (click)="pillsService.toggleTop10RevenueStatus()">
-    Top 10
-    Revenue
+    Top 10 Revenue
   </div>
-  <div class="pill" [class.active]='pillsService.top10RevenueByYearActive' (click)="yearSelect()">
-    Top 10 Revenue by Year</div>
+  <div class="pill" [class.active]='pillsService.top10RevenueByYearActive' (click)="openYearSelection()">
+    Top 10 Revenue per Year</div>
+  <mat-icon *ngIf="pillsService.top10RevenueByYearActive" (click)="pillsService.toggleTop10RevenueByYearStatus()">
+    rotate_left
+  </mat-icon>
 </div>
 
 <div *ngIf="top10RevenueByYearSelectIsActive" class="year-select-backdrop" (click)="backdropAction()">
   <div class="year-select">
-
     <h1>Select a year</h1>
-    <span>2016</span>
-    <span>2015</span>
-    <span>2014</span>
-    <span>2013</span>
+    <span *ngFor="let year of moviesYears$ | async" (click)="selectYear(year)"> {{ year }} </span>
   </div>
 </div>
-
-<!-- <mat-menu class="year-menu" backdropClass="backdrop" mat-button #menuTop10ByYears="matMenu">
-  <button mat-menu-item>Item 1</button>
-</mat-menu> -->
-
 
 <div class=" movie-grid header">
   <span>RANKING</span>
@@ -38,3 +31,6 @@
 </app-movies-list>
 
 <app-movies-list-top10 *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
+
+<app-movies-list-top10-revenue-per-year [year]="selectedYear" *ngIf="pillsService.top10RevenueByYearActive">
+</app-movies-list-top10-revenue-per-year>

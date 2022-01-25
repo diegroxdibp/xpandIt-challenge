@@ -1,5 +1,5 @@
 <cdk-virtual-scroll-viewport #scroller [itemSize]="50">
-  <div *cdkVirtualFor="let movie of movies$ | async; let index = index;" class="movie">
+  <div *cdkVirtualFor="let movie of movies; let index = index;" class="movie">
     <div class="movie-grid info">
       <span> {{ index + 1 }} </span>
       <span class="title"> {{ movie.title }} </span>

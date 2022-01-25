@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { MoviesService } from '../movies.service';
 import { PillsStatusService } from '../pills-status.service';
 
 @Component({
@@ -8,17 +10,33 @@ import { PillsStatusService } from '../pills-status.service';
 })
 export class MovieRankingComponent implements OnInit {
   top10RevenueByYearSelectIsActive: boolean = false;
+  moviesYears$: Observable<number[]>;
+  selectedYear: number;
+
   constructor(
+    private moviesService: MoviesService,
     public pillsService: PillsStatusService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.moviesYears$ = this.moviesService.getMoviesYears();
+  }
 
-  yearSelect(): void {
+  openYearSelection(): void {
     this.top10RevenueByYearSelectIsActive = !this.top10RevenueByYearSelectIsActive;
   }
 
-  backdropAction() {
+  closeYearSelectionMenu(): void {
     this.top10RevenueByYearSelectIsActive = false;
+  }
+
+  selectYear(year: number): void {
+    if (!this.pillsService.top10RevenueByYearActive) this.pillsService.toggleTop10RevenueByYearStatus();
+    this.selectedYear = year;
+    this.closeYearSelectionMenu()
+  }
+
+  backdropAction() {
+    this.closeYearSelectionMenu();
   }
 }
