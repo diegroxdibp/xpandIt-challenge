@@ -6,6 +6,7 @@
   height: calc(100vh - 50px);
   width: 70%;
   margin: 0 auto;
+  overflow-x: hidden;
 
   @media only screen and (max-width: 600px) {
     width: 90%;
@@ -177,4 +178,9 @@ h1 {
       display: inline-flex;
     }
   }
+}
+
+.list-wrapper {
+  height: 100%;
+  padding-bottom: 20px;
 }

@@ -27,10 +27,10 @@
 </div>
 <mat-divider></mat-divider>
 
-<app-movies-list *ngIf="!pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive" [params]="[20, 0]">
-</app-movies-list>
+<app-movies-list @animation *ngIf="!pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive"
+  [params]="[20, 0]"></app-movies-list>
 
-<app-movies-list-top10 *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
+<app-movies-list-top10 @animation *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
 
-<app-movies-list-top10-revenue-per-year [year]="selectedYear" *ngIf="pillsService.top10RevenueByYearActive">
+<app-movies-list-top10-revenue-per-year @animation *ngIf="pillsService.top10RevenueByYearActive" [year]="selectedYear">
 </app-movies-list-top10-revenue-per-year>

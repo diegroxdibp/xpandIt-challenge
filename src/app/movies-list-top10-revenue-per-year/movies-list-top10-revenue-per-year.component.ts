@@ -19,7 +19,7 @@ export class MoviesListTop10RevenuePerYearComponent implements OnInit, OnChanges
 
   constructor(
     private moviesService: MoviesService,
-    public dialog: MatDialog
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
