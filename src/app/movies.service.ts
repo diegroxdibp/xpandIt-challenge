@@ -104,4 +104,12 @@ export class MoviesService {
       }),
     );
   }
+
+  searchMovie(movieName: string): Observable<Movie[]> {
+    return this.movies$.pipe(
+      map((movies: Movie[]) => {
+        return movies.filter((movie: Movie) => movie.title.toLowerCase().includes(movieName.toLowerCase()));
+      })
+    )
+  }
 }

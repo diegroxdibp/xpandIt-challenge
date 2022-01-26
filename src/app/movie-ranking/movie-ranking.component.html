@@ -1,14 +1,32 @@
 <h1>Movie ranking</h1>
 
-<div class="top-ten">
-  <div class="pill" [class.active]='pillsService.top10RevenueActive' (click)="pillsService.toggleTop10RevenueStatus()">
-    Top 10 Revenue
+<div class="pills">
+
+  <div class="top-ten">
+    <div class="pill" [class.active]='pillsService.top10RevenueActive'
+      (click)="pillsService.toggleTop10RevenueStatus()">
+      Top 10 Revenue
+    </div>
+
+    <div class="pill" [class.active]='pillsService.top10RevenueByYearActive' (click)="openYearSelection()">
+      Top 10 Revenue per Year
+    </div>
+    <mat-icon *ngIf="pillsService.top10RevenueByYearActive" (click)="pillsService.toggleTop10RevenueByYearStatus()">
+      rotate_left
+    </mat-icon>
+
+    <div class="pill" [class.active]='searchMode' (click)="toggleSearchMode()">
+      Search</div>
   </div>
-  <div class="pill" [class.active]='pillsService.top10RevenueByYearActive' (click)="openYearSelection()">
-    Top 10 Revenue per Year</div>
-  <mat-icon *ngIf="pillsService.top10RevenueByYearActive" (click)="pillsService.toggleTop10RevenueByYearStatus()">
-    rotate_left
-  </mat-icon>
+
+  <input @slideY *ngIf="searchMode && !pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive"
+    class="search" type="text" placeholder="Type a movie name..." (keyup)="searchMovie($event)"
+    [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let movie of movieSearch$ | async" [value]="movie.title">
+      {{movie.title}}
+    </mat-option>
+  </mat-autocomplete>
 </div>
 
 <div *ngIf="top10RevenueByYearSelectIsActive" class="year-select-backdrop" (click)="backdropAction()">
@@ -17,6 +35,7 @@
     <span *ngFor="let year of moviesYears$ | async" (click)="selectYear(year)"> {{ year }} </span>
   </div>
 </div>
+
 
 <div class=" movie-grid header">
   <span>RANKING</span>
@@ -27,10 +46,10 @@
 </div>
 <mat-divider></mat-divider>
 
-<app-movies-list @animation *ngIf="!pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive"
+<app-movies-list @slideX *ngIf="!pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive"
   [params]="[20, 0]"></app-movies-list>
 
-<app-movies-list-top10 @animation *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
+<app-movies-list-top10 @slideX *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
 
-<app-movies-list-top10-revenue-per-year @animation *ngIf="pillsService.top10RevenueByYearActive" [year]="selectedYear">
+<app-movies-list-top10-revenue-per-year @slideX *ngIf="pillsService.top10RevenueByYearActive" [year]="selectedYear">
 </app-movies-list-top10-revenue-per-year>

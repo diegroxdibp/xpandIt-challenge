@@ -6,7 +6,6 @@
   height: calc(100vh - 50px);
   width: 70%;
   margin: 0 auto;
-  overflow-x: hidden;
 
   @media only screen and (max-width: 600px) {
     width: 90%;
@@ -15,6 +14,38 @@
 
 h1 {
   margin-top: 1.5rem;
+}
+
+.pills {
+  width: fit-content;
+
+  .search {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.25rem;
+    color: var(--color-pill-active-text);
+    border: 1px solid var(--color-pill-border);
+    border-radius: 20px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    &::placeholder,
+    &::-ms-input-placeholder {
+      font-weight: 300;
+      color: var(--color-);
+    }
+    // Overriding default webkit :focus-visible
+    &:focus-visible {
+      outline: var(--color-pill-border) auto 1px;
+      outline-color: var(--color-pill-border);
+      outline-style: auto;
+      outline-width: 1px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .top-ten {
@@ -34,6 +65,8 @@ h1 {
     border: 1px solid var(--color-pill-border);
     border-radius: 20px;
     padding: 8px 12px;
+    box-sizing: border-box;
+    z-index: 2;
     cursor: pointer;
   }
 
@@ -62,7 +95,7 @@ h1 {
   font-size: 12px;
   font-weight: 500;
   border-radius: 20px;
-  color: var(--color-pill-active-text);
+  color: var(--color-pill-active-text) !important;
   background: var(--color-pill-active-background);
   padding: 8px 12px;
   cursor: pointer;
@@ -178,9 +211,4 @@ h1 {
       display: inline-flex;
     }
   }
-}
-
-.list-wrapper {
-  height: 100%;
-  padding-bottom: 20px;
 }
