@@ -61,12 +61,10 @@ export class MoviesService {
     return `${url}${endpoint}${queryParamsString}`
   }
 
-  // TODO Refactor the sorting method for efficiency
   getTop10MoviesByRevenue(): Observable<Movie[]> {
     return this.movies$.pipe(
       map((movies: Movie[]) => {
-        const sortedByRevenue = movies.sort((a, b) => (a.revenue < b.revenue) ? 1 : -1);
-        return sortedByRevenue.filter((movie: Movie, index: number) => index < 10);
+        return movies.sort().reverse().splice(0, 10);
       })
     );
   }
@@ -75,10 +73,11 @@ export class MoviesService {
   getMoviesYears(): Observable<number[]> {
     return this.movies$.pipe(
       map((movies: Movie[]) => {
-        const years: number[] = [];
-        const yearsArray = movies.map((movie: Movie) => { return movie.year });
-        yearsArray.forEach((year: number) => { if (!years.includes(year)) { years.push(year) } })
-        return years.sort().reverse();
+        const years = new Set<number>();
+        for (const movie of movies) {
+          years.add(movie.year);
+        }
+        return [...years].sort().reverse();
       })
     )
   }
