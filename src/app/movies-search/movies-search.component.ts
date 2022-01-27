@@ -1,10 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize, tap } from 'rxjs/operators';
 
-import { Movie, MovieFullDescription } from '../models/movie';
-import { MovieDetailComponent } from '../movie-deatil/movie-detail.component';
+import { DialogService } from '../dialog.service';
+import { Movie } from '../models/movie';
 import { MoviesMenuService } from '../movies-menu.service';
 import { MoviesService } from '../movies.service';
 
@@ -21,15 +20,18 @@ export class MoviesSearchComponent implements OnDestroy {
   constructor(
     private moviesService: MoviesService,
     private moviesMenuService: MoviesMenuService,
-    private dialog: MatDialog,
+    private dialogService: DialogService,
   ) {
     this.subscription = this.moviesMenuService.searchTermMonitor.pipe(
+      // Wait 500ms for text so it won't flood requests on every keystroke
+      debounceTime(500),
+      // Only request if new value
       distinctUntilChanged(),
-      tap((res) => { this.loading = true; console.log(res); }),
-      debounceTime(1500),
+      tap((searchTerm: string) => { this.loading = true; console.log(searchTerm); }),
     ).subscribe((searchTerm: string) => {
       this.moviesService.searchMovie(searchTerm).pipe(
         finalize(() => this.loading = false)
+        // Sort alphabetically by title
       ).subscribe((movies: Movie[]) => {
         this.moviesFound = movies.sort(function (a, b) {
           if (a.title < b.title) { return -1; }
@@ -40,27 +42,8 @@ export class MoviesSearchComponent implements OnDestroy {
     })
   }
 
-  // Dialog dimensions
-  // Height = Screen height - Navbar size - Top and Bottom margins on design document together
-  // Position, Starting from the top and offseting navbar and top margin = Navabar size + Top margin on document
   openDialog(movie: Movie): void {
-    const movieDetail$ = this.moviesService.getMoviesById(movie.id);
-    const movieDetailSubscription = movieDetail$.subscribe((movie: MovieFullDescription) => {
-      const dialogRef = this.dialog.open(MovieDetailComponent, {
-        maxHeight: 'calc(100vh - 50px - 42px)',
-        width: '750px',
-        ariaLabel: 'Movie information',
-        panelClass: 'dialog-box-movie-details',
-        position: {
-          top: '71px'
-        },
-        data: movie,
-      });
-
-      dialogRef.afterClosed().subscribe(() => {
-        movieDetailSubscription.unsubscribe()
-      });
-    })
+    this.dialogService.openDialog(movie);
   }
 
   ngOnDestroy() {

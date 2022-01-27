@@ -23,5 +23,5 @@
   [year]="moviesMenuService.selectedYear">
 </app-movies-list-top10-revenue-per-year>
 
-<movies-search *ngIf="moviesMenuService.searchTerm && moviesMenuService.searchMenu">
+<movies-search @slideX *ngIf="moviesMenuService.searchTerm && moviesMenuService.searchMenu">
 </movies-search>
