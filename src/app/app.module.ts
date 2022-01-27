@@ -21,6 +21,8 @@ import { MoviesListTop10Component } from './movies-list-top10/movies-list-top10.
 import { MoviesListComponent } from './movies-list/movies-list.component';
 import { NavbarTopComponent } from './navbar-top/navbar-top.component';
 import { PillComponent } from './pill/pill.component';
+import { YearSelectComponent } from './year-select/year-select.component';
+import { MoviesSearchComponent } from './movies-search/movies-search.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { PillComponent } from './pill/pill.component';
     MoviesListTop10Component,
     MovieDetailComponent,
     MoviesListTop10RevenuePerYearComponent,
+    YearSelectComponent,
+    MoviesSearchComponent,
   ],
   imports: [
     BrowserModule,

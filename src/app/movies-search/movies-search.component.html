@@ -1,0 +1,14 @@
+<cdk-virtual-scroll-viewport #scroller [itemSize]="50">
+  <div *cdkVirtualFor="let movie of moviesFound; let index = index;" class="movie">
+    <div class="movie-grid info">
+      <span> {{ index + 1 }} </span>
+      <span class="title"> {{ movie.title }} </span>
+      <span> {{ movie.year }} </span>
+      <span> ${{ movie.revenue }} </span>
+      <mat-icon aria-label="See more" (click)="openDialog(movie)"> remove_red_eye </mat-icon>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <h1 *ngIf="moviesFound?.length === 0">No movies found...</h1>
+</cdk-virtual-scroll-viewport>

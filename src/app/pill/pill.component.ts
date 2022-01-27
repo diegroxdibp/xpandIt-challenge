@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { PillsStatusService } from '../pills-status.service';
+import { MoviesMenuService } from '../movies-menu.service';
 
 @Component({
   selector: 'app-pill',
@@ -10,10 +10,10 @@ export class PillComponent implements OnInit {
 
   @Input() title: string;
   @HostBinding('class') get hostClasses() {
-    return `${this.pillsService.top10RevenueActive ? 'active-pill' : ''}`;
+    return `${this.moviesMenuService.top10RevenueActive ? 'active-pill' : ''}`;
   }
 
-  constructor(private pillsService: PillsStatusService) { }
+  constructor(private moviesMenuService: MoviesMenuService) { }
 
   ngOnInit(): void { }
 

@@ -1,0 +1,6 @@
+<div class="year-select-backdrop" (click)="backdropAction()">
+  <div class="year-select">
+    <h1>Select a year</h1>
+    <span *ngFor="let year of moviesYears$ | async" (click)="selectYear(year)"> {{ year }} </span>
+  </div>
+</div>

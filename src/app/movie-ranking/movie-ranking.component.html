@@ -3,24 +3,26 @@
 <div class="pills">
 
   <div class="top-ten">
-    <div class="pill" [class.active]='pillsService.top10RevenueActive'
-      (click)="pillsService.toggleTop10RevenueStatus()">
+    <div class="pill" [class.active]='moviesMenuService.top10RevenueActive'
+      (click)="moviesMenuService.toggleTop10RevenueStatus()">
       Top 10 Revenue
     </div>
 
-    <div class="pill" [class.active]='pillsService.top10RevenueByYearActive' (click)="openYearSelection()">
+    <div class="pill" [class.active]='moviesMenuService.top10RevenueByYearActive'
+      (click)="moviesMenuService.toggleYearSelection()">
       Top 10 Revenue per Year
     </div>
-    <mat-icon *ngIf="pillsService.top10RevenueByYearActive" (click)="pillsService.toggleTop10RevenueByYearStatus()">
+    <mat-icon *ngIf="moviesMenuService.top10RevenueByYearActive"
+      (click)="moviesMenuService.toggleTop10RevenueByYearStatus()">
       rotate_left
     </mat-icon>
 
-    <div class="pill" [class.active]='searchMode' (click)="toggleSearchMode()">
+    <div class="pill" [class.active]='moviesMenuService.searchMenu' (click)="moviesMenuService.toggleSearchMode()">
       Search</div>
   </div>
 
-  <input @slideY *ngIf="searchMode && !pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive"
-    class="search" type="text" placeholder="Type a movie name..." (keyup)="searchMovie($event)"
+  <input @slideY class="search" type="text" placeholder="Type a movie name..." (keyup)="updateSearchTerm($event)"
+    *ngIf="moviesMenuService.searchMenu && !moviesMenuService.top10RevenueActive && !moviesMenuService.top10RevenueByYearActive"
     [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let movie of movieSearch$ | async" [value]="movie.title">
@@ -29,13 +31,7 @@
   </mat-autocomplete>
 </div>
 
-<div *ngIf="top10RevenueByYearSelectIsActive" class="year-select-backdrop" (click)="backdropAction()">
-  <div class="year-select">
-    <h1>Select a year</h1>
-    <span *ngFor="let year of moviesYears$ | async" (click)="selectYear(year)"> {{ year }} </span>
-  </div>
-</div>
-
+<year-select *ngIf="moviesMenuService.top10RevenueByYearSelection"></year-select>
 
 <div class=" movie-grid header">
   <span>RANKING</span>
@@ -46,10 +42,17 @@
 </div>
 <mat-divider></mat-divider>
 
-<app-movies-list @slideX *ngIf="!pillsService.top10RevenueActive && !pillsService.top10RevenueByYearActive"
+<app-movies-list @slideX
+  *ngIf="!moviesMenuService.top10RevenueActive && !moviesMenuService.top10RevenueByYearActive && !moviesMenuService.searchMenu"
   [params]="[20, 0]"></app-movies-list>
 
-<app-movies-list-top10 @slideX *ngIf="pillsService.top10RevenueActive"></app-movies-list-top10>
+<app-movies-list-top10 @slideX *ngIf="moviesMenuService.top10RevenueActive && !moviesMenuService.searchMenu">
+</app-movies-list-top10>
 
-<app-movies-list-top10-revenue-per-year @slideX *ngIf="pillsService.top10RevenueByYearActive" [year]="selectedYear">
+<app-movies-list-top10-revenue-per-year @slideX
+  *ngIf="moviesMenuService.top10RevenueByYearActive && !moviesMenuService.searchMenu"
+  [year]="moviesMenuService.selectedYear">
 </app-movies-list-top10-revenue-per-year>
+
+<movies-search *ngIf="moviesMenuService.searchTerm && moviesMenuService.searchMenu">
+</movies-search>
