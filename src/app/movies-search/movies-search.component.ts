@@ -14,8 +14,8 @@ import { MoviesService } from '../movies.service';
   styleUrls: ['./movies-search.component.scss']
 })
 export class MoviesSearchComponent implements OnDestroy {
-  loading: boolean;
   moviesFound: Movie[];
+  loading: boolean = false;
   subscription: Subscription;
 
   constructor(
@@ -24,9 +24,9 @@ export class MoviesSearchComponent implements OnDestroy {
     private dialog: MatDialog,
   ) {
     this.subscription = this.moviesMenuService.searchTermMonitor.pipe(
-      debounceTime(500),
       distinctUntilChanged(),
-      tap(() => this.loading = true)
+      tap((res) => { this.loading = true; console.log(res); }),
+      debounceTime(1500),
     ).subscribe((searchTerm: string) => {
       this.moviesService.searchMovie(searchTerm).pipe(
         finalize(() => this.loading = false)

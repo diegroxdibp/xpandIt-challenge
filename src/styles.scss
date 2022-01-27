@@ -26,7 +26,10 @@ $xpandit-challenge-theme: mat.define-light-theme(
 
 html,
 body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   height: 100%;
+  overflow-x: hidden;
   --color-primary: #0b749b;
   --color-primary-dark: #012433;
   --color-text: #536b7a;
@@ -40,26 +43,34 @@ body {
   --color-dialog-ornament: #21b3cf;
   --color-hover-background: #9aaebb27;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
 
 h1 {
   color: var(--color-primary);
 }
 
-p,
-span {
+p {
+  font-size: 16px;
   color: var(--color-text);
 }
 
 span {
-  font-size: 16px;
+  color: var(--color-text);
 }
 
 mat-spinner {
   margin: auto;
+}
+
+mat-icon {
+  color: var(--color-icon);
+  transition: color 0.5s ease;
+  &:hover {
+    color: var(--color-pill-active-text);
+  }
+}
+
+.fade {
+  opacity: 0;
 }
 
 // Injectable class for Movie dialog modal - Must be global
@@ -75,6 +86,7 @@ mat-spinner {
   }
 }
 
+// Scroll bar styling
 /* Works on Firefox */
 * {
   scrollbar-width: thin;

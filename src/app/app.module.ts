@@ -23,6 +23,7 @@ import { NavbarTopComponent } from './navbar-top/navbar-top.component';
 import { PillComponent } from './pill/pill.component';
 import { YearSelectComponent } from './year-select/year-select.component';
 import { MoviesSearchComponent } from './movies-search/movies-search.component';
+import { MoviesMenuComponent } from './movies-menu/movies-menu.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MoviesSearchComponent } from './movies-search/movies-search.component';
     MoviesListTop10RevenuePerYearComponent,
     YearSelectComponent,
     MoviesSearchComponent,
+    MoviesMenuComponent,
   ],
   imports: [
     BrowserModule,

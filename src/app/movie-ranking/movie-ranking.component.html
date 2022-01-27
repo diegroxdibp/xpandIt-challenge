@@ -1,37 +1,6 @@
 <h1>Movie ranking</h1>
 
-<div class="pills">
-
-  <div class="top-ten">
-    <div class="pill" [class.active]='moviesMenuService.top10RevenueActive'
-      (click)="moviesMenuService.toggleTop10RevenueStatus()">
-      Top 10 Revenue
-    </div>
-
-    <div class="pill" [class.active]='moviesMenuService.top10RevenueByYearActive'
-      (click)="moviesMenuService.toggleYearSelection()">
-      Top 10 Revenue per Year
-    </div>
-    <mat-icon *ngIf="moviesMenuService.top10RevenueByYearActive"
-      (click)="moviesMenuService.toggleTop10RevenueByYearStatus()">
-      rotate_left
-    </mat-icon>
-
-    <div class="pill" [class.active]='moviesMenuService.searchMenu' (click)="moviesMenuService.toggleSearchMode()">
-      Search</div>
-  </div>
-
-  <input @slideY class="search" type="text" placeholder="Type a movie name..." (keyup)="updateSearchTerm($event)"
-    *ngIf="moviesMenuService.searchMenu && !moviesMenuService.top10RevenueActive && !moviesMenuService.top10RevenueByYearActive"
-    [matAutocomplete]="auto">
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let movie of movieSearch$ | async" [value]="movie.title">
-      {{movie.title}}
-    </mat-option>
-  </mat-autocomplete>
-</div>
-
-<year-select *ngIf="moviesMenuService.top10RevenueByYearSelection"></year-select>
+<movies-menu></movies-menu>
 
 <div class=" movie-grid header">
   <span>RANKING</span>

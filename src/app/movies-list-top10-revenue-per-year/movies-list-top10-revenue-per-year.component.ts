@@ -24,7 +24,7 @@ export class MoviesListTop10RevenuePerYearComponent implements OnInit, OnChanges
 
   ngOnInit(): void {
     this.loading = true;
-    this.moviesService.getMoviesByYear(this.year)
+    this.moviesService.getTop10MoviesByRevenuePerYear(this.year)
       .pipe(
         finalize(() => { this.loading = false; })
       )
@@ -57,7 +57,7 @@ export class MoviesListTop10RevenuePerYearComponent implements OnInit, OnChanges
   ngOnChanges(): void {
     console.log(this.year)
     this.loading = true;
-    const newSubscription = this.moviesService.getMoviesByYear(this.year)
+    const newSubscription = this.moviesService.getTop10MoviesByRevenuePerYear(this.year)
       .pipe(
         finalize(() => { this.loading = false; })
       )

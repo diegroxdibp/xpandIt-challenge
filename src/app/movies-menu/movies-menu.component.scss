@@ -1,0 +1,87 @@
+:host {
+  width: fit-content;
+
+  .top-ten {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    height: fit-content;
+    margin: 1rem 0;
+    align-items: center;
+
+    .pill {
+      position: relative;
+      display: flex;
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--color-pill);
+      border: 1px solid var(--color-pill-border);
+      border-radius: 20px;
+      padding: 8px 12px;
+      transition: all 0.5s ease;
+      box-sizing: border-box;
+      user-select: none;
+      z-index: 2;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-pill-active-text) !important;
+        background: var(--color-pill-active-background);
+      }
+    }
+  }
+
+  .search {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.25rem;
+    color: var(--color-pill-active-text);
+    border: 1px solid var(--color-pill-border);
+    border-radius: 20px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    &::placeholder,
+    &::-ms-input-placeholder {
+      font-weight: 300;
+      color: var(--color-);
+    }
+    // Overriding default webkit :focus-visible
+    &:focus-visible {
+      outline: var(--color-pill-border) auto 1px;
+      outline-color: var(--color-pill-border);
+      outline-style: auto;
+      outline-width: 1px;
+    }
+  }
+
+  .active {
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 20px;
+    color: var(--color-pill-active-text) !important;
+    background: var(--color-pill-active-background);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+
+    .search {
+      margin-top: 1rem;
+    }
+
+    .top-ten {
+      flex-direction: column;
+      gap: 1rem;
+      margin: 0;
+
+      .pill {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

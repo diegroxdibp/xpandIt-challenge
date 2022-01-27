@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
+
 import { Movie, MovieFullDescription } from './models/movie';
 import { MoviesApiResponse } from './models/moviesApiResponse';
-import { map, shareReplay, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,26 @@ export class MoviesService {
     );
   }
 
+  queryBuilder(url: string, endpoint: string, params: string[]) {
+    const queryParams = ['?'];
+    params.forEach((param: string, index: number) => {
+      queryParams.push(param);
+      if (index !== params.length - 1) queryParams.push('&');
+    })
+    const queryParamsString = queryParams.join('');
+    return `${url}${endpoint}${queryParamsString}`
+  }
+
+  // TODO Refactor the sorting method for efficiency
+  getTop10MoviesByRevenue(): Observable<Movie[]> {
+    return this.movies$.pipe(
+      map((movies: Movie[]) => {
+        const sortedByRevenue = movies.sort((a, b) => (a.revenue < b.revenue) ? 1 : -1);
+        return sortedByRevenue.filter((movie: Movie, index: number) => index < 10);
+      })
+    );
+  }
+
   // Get years from movies and sort from latest to oldest
   getMoviesYears(): Observable<number[]> {
     return this.movies$.pipe(
@@ -62,46 +83,17 @@ export class MoviesService {
     )
   }
 
-  queryBuilder(url: string, endpoint: string, params: string[]) {
-    const queryParams = ['?'];
-    params.forEach((param: string, index: number) => {
-      queryParams.push(param);
-      if (index !== params.length - 1) queryParams.push('&');
-    })
-    const queryParamsString = queryParams.join('');
-    return `${url}${endpoint}${queryParamsString}`
-  }
-
-  getMoviesByYear(yearStart: number, yearEnd?: number): Observable<Movie[]> {
+  getTop10MoviesByRevenuePerYear(yearStart: number, yearEnd?: number): Observable<Movie[]> {
     const start = `start=${yearStart}`;
     const finish = `${yearEnd ? 'end=' + yearEnd : 'end=' + yearStart}`;
     return this.http.get<MoviesApiResponse>(
       `${this.queryBuilder(this.API_URL, this.MOVIES_ENDPOINT, [start, finish])}`
     ).pipe(
-      tap({
-        next: () => {
-          console.log(this.queryBuilder(this.API_URL, this.MOVIES_ENDPOINT, [start, finish]));
-        },
-      }),
+      shareReplay({ bufferSize: 1, refCount: false }),
       map((response: MoviesApiResponse) => {
         return response.content.
           filter((movie: Movie, index: number) => index < 10).sort((a, b) => (a.revenue < b.revenue) ? 1 : -1);
       })
-    );
-  }
-
-  // TODO Refactor the sorting method for efficiency
-  getTop10MoviesByRevenue(): Observable<Movie[]> {
-    return this.movies$.pipe(
-      map((movies: Movie[]) => {
-        const sortedByRevenue = movies.sort((a, b) => (a.revenue < b.revenue) ? 1 : -1);
-        return sortedByRevenue.filter((movie: Movie, index: number) => index < 10);
-      }),
-      tap({
-        next: (movies: Movie[]) => {
-          console.log(movies);
-        },
-      }),
     );
   }
 
