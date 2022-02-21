@@ -90,7 +90,6 @@ export class MoviesService {
     );
   }
 
-  // TODO Refactor the sorting method for efficiency
   getTop10MoviesByRevenue(): Observable<Movie[]> {
     return this.movies$.pipe(
       map((movies: Movie[]) => {
