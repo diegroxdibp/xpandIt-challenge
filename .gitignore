@@ -40,6 +40,7 @@ yarn-error.log
 testem.log
 /typings
 /.angular/cache
+.angular
 
 # System Files
 .DS_Store

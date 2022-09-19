@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport #scroller [itemSize]="50">
+<cdk-virtual-scroll-viewport #scroller [itemSize]="50" minBufferPx="500" maxBufferPx="650">
   <mat-spinner *ngIf="loading"></mat-spinner>
   <div *cdkVirtualFor="let movie of moviesFound; let index = index;" class="movie" [class.fade]="loading">
     <div class="movie-grid info">

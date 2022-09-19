@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport #scroller [itemSize]="50">
+<cdk-virtual-scroll-viewport #scroller [itemSize]="50" minBufferPx="500" maxBufferPx="650">
   <div *cdkVirtualFor="let movie of movies; templateCacheSize: 0" class="movie">
     <div class="movie-grid info">
       <span> {{ movie.rank }} </span>

@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class MoviesMenuService {
   searchTermMonitor = new Subject<string>();
-  searchTerm: string;
+  searchTerm: string | undefined;
   searchMenu: boolean = false;
   top10RevenueActive: boolean = false;
   top10RevenueByYearActive: boolean = false;
